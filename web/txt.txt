@@ -1,0 +1,5 @@
+"element-ui": "^2.9.2",
+
+"element": "^0.1.4",
+
+"vue-markdown": "^2.2.4",
