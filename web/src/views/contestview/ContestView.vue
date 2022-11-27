@@ -1,4 +1,5 @@
 <template>
+    <NavBarSec />
     <ContentBase>
         contest
     </ContentBase>
@@ -6,11 +7,13 @@
 
 <script>
 import ContentBase from '../../components/ContentBase.vue'
+import NavBarSec from '@/components/NavBarSec.vue'
 
 export default {
     name: "ContestView",
     components: {
         ContentBase,
+        NavBarSec,
     },
 };
 </script>

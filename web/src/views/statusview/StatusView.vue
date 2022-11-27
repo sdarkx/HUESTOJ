@@ -1,4 +1,5 @@
 <template>
+    <NavBarSec/>
     <ContentBase>
         <div>
             <el-button @click="showdiv(true)">显示</el-button>
@@ -12,11 +13,13 @@
 
 <script>
 import ContentBase from '../../components/ContentBase.vue';
+import NavBarSec from '@/components/NavBarSec.vue'
 
 export default {
     name: "HomeView",
     components: {
         ContentBase,
+        NavBarSec,
     },
     data() {
         return {

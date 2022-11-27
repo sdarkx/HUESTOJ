@@ -1,4 +1,5 @@
 <template>
+    <NavBarSec />
     <ContentBase>
         <div>
             <textarea style="text-align: center;" v-model="markdown"></textarea>
@@ -10,11 +11,13 @@
 <script>
 import ContentBase from "../../components/ContentBase.vue";
 import { marked } from 'marked';
+import NavBarSec from '@/components/NavBarSec.vue'
 
 export default {
     name: "HomeView",
     components: {
         ContentBase,
+        NavBarSec,
     },
     data() {
         return {

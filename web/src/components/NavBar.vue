@@ -5,6 +5,7 @@
             <div class="container-fluid" style="border: 1px solid transparent">
                 <div class="up-logo">
                     <img
+                        @click="routerhome"
                         class=""
                         src="../assets/logo/logo2.png"
                         style="height: 50px"
@@ -15,91 +16,17 @@
                         <el-button
                             link="true"
                             @click="enter"
-                            style="font-size: 17px; margin-left: -4px"
+                            style="font-size: 17px;"
                             >Enter</el-button
                         >
                         |
                         <el-button
                             link="true"
                             @click="register"
-                            style="font-size: 17px"
+                            style="font-size: 17px; margin-left: -2px;"
                             >Register</el-button
                         >
                     </div>
-                </div>
-            </div>
-        </nav>
-        <!-- As a heading -->
-        <nav class="container navbar navbar-expand-lg navbar-white bg-white">
-            <div class="container-fluid">
-                <div>
-                    <ul
-                        class="navbar-nav"
-                        style="
-                            font-family: 宋体;
-                            font-size: 18px;
-                            font-weight: bolder;
-                        "
-                    >
-                        <li class="nav-item">
-                            <router-link
-                                class="nav-link"
-                                :to="{ name: 'HomeView' }"
-                                >HOME</router-link
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <router-link
-                                class="nav-link"
-                                :to="{ name: 'ProblemSetView' }"
-                                >PROBLEMSET</router-link
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <router-link
-                                class="nav-link"
-                                :to="{ name: 'StatusView' }"
-                                >STATUS</router-link
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <router-link
-                                class="nav-link"
-                                :to="{ name: 'ContestView' }"
-                                >CONTESTS</router-link
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <router-link
-                                class="nav-link"
-                                :to="{ name: 'RatingView' }"
-                                >RATING</router-link
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <router-link
-                                class="nav-link"
-                                :to="{ name: 'WikiView' }"
-                                >WIKI</router-link
-                            >
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <el-button>Search</el-button>
-                    <!-- <form method="" action="/search">
-                        <input class="search" name="query" value="">
-                        <input
-                            class=""
-                            type="search"
-                            placeholder="Search"
-                            aria-label="Search"
-                        />
-                        <el-button>Default</el-button>
-                        <button class="nva-second-search" type="submit">
-                            Search
-                        </button>
-                    </form> -->
                 </div>
             </div>
         </nav>
@@ -121,6 +48,9 @@ export default {
         register() {
             this.$router.push("/register");
         },
+        routerhome() {
+            this.$router.push("/home");
+        },
     },
 };
 </script>
@@ -129,7 +59,7 @@ export default {
 /* 第一层 */
 
 /* 第二层 */
-.container-fluid {
+/* .container-fluid {
     margin: 0px;
     border-style: solid;
     border-width: 0.5px;
@@ -158,5 +88,5 @@ a.router-link-active {
 }
 .el-button + .el-button {
     margin-left: -2px;
-}
+} */
 </style>

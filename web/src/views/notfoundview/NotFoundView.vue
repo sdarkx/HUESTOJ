@@ -1,4 +1,5 @@
 <template>
+    <NavBarSec />
     <ContentBase>
         404
     </ContentBase>
@@ -6,10 +7,13 @@
 
 <script>
 import ContentBase from '../../components/ContentBase.vue';
+import NavBarSec from '@/components/NavBarSec.vue'
+
 export default {
     name: "NotFoundView",
     components: {
         ContentBase,
+        NavBarSec,
     },
 };
 </script>

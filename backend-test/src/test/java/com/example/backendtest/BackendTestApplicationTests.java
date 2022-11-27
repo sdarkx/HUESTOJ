@@ -1,10 +1,13 @@
-package com.zut.oj;
+package com.example.backendtest;
 
-import com.zut.oj.pojo.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BackendApplicationTests {
+class BackendTestApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
 
 }

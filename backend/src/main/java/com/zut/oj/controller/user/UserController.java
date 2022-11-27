@@ -4,13 +4,15 @@
 // @File : UserController.java
 // @Software : IntelliJ IDEA
 
-package com.zut.oj.controller;
+package com.zut.oj.controller.user;
 
+import com.zut.oj.mapper.UserMapper;
+import com.zut.oj.pojo.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * 默认情况下，@RestController注解会将返回的对象数据转换为JSON格式。返回数据
@@ -24,14 +26,24 @@ public class UserController {
      * json对象传递 注解 @RequestBody
      * 传递对象时，实体类属性名 与 前端传递过来的key-value一直
      * MultipartFile photo 文件上传
+     * @RequestBody 将前端传过来的json对象映射为实体类
      */
-    @GetMapping("/user")
-    public String enter(@RequestParam(value = "name") String a) {
-        return "Hello" + a;
-    }
+    // test
+    //@GetMapping("#")
+    //public String enter(@RequestParam(value = "name") String a) {
+    //    return "Hello" + a;
+    //}
+    //
+    //@RequestMapping("#")
+    //public String user(){
+    //    return "World";
+    //}
 
-    @RequestMapping("/enter")
-    public String user(){
-        return "World";
+    @Autowired
+    private UserMapper userMapper;
+
+    @GetMapping("/user/all")
+    public List<User> getall(){
+        return userMapper.selectList(null);
     }
 }

@@ -1,4 +1,5 @@
 <template>
+    <NavBarSec />
     <ContentBase>
         <div>rating</div>
     </ContentBase>
@@ -6,11 +7,13 @@
 
 <script>
 import ContentBase from "../../components/ContentBase.vue";
+import NavBarSec from '@/components/NavBarSec.vue'
 
 export default {
     name: "HomeView",
     components: {
         ContentBase,
+        NavBarSec,
     },
 };
 </script>

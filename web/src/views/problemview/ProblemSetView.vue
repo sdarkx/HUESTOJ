@@ -1,4 +1,5 @@
 <template>
+    <NavBarSec />
     <ContentBase>
         <!-- 改成列表 我是sb用表格 -->
         <div>
@@ -42,6 +43,8 @@
 
 <script>
 import ContentBase from "../../components/ContentBase.vue";
+import NavBarSec from '@/components/NavBarSec.vue'
+
 import { ElTable } from "element-plus";
 
 export default {
@@ -49,6 +52,7 @@ export default {
     components: {
         ContentBase,
         ElTable,
+        NavBarSec,
     },
     methods: {
     },

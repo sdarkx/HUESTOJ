@@ -5,8 +5,8 @@ import StatusView from '../views/statusview/StatusView.vue'
 import ContestView from '../views/contestview/ContestView.vue'
 import RatingView from '../views/ratingview/RatingView.vue'
 import NotFoundView from '../views/notfoundview/NotFoundView.vue'
-import EnterView from '../views/userview/EnterView.vue'
-import RegisterView from '../views/userview/RegisterView.vue'
+import EnterView from '../views/userview/account/EnterView.vue'
+import RegisterView from '../views/userview/account/RegisterView.vue'
 import WikiView from '../views/wikiview/WikiView.vue'
 
 const routes = [
