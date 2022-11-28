@@ -1,7 +1,9 @@
 <template>
     <NavBarSec />
     <ContentBase>
-        contest
+        <div>
+            <el-empty :image-size="200"></el-empty>
+        </div>
     </ContentBase>
 </template>
 

@@ -1,13 +1,15 @@
 <template>
     <NavBarSec />
     <ContentBase>
-        <div>rating</div>
+        <div>
+            <el-empty :image-size="200"></el-empty>
+        </div>
     </ContentBase>
 </template>
 
 <script>
 import ContentBase from "../../components/ContentBase.vue";
-import NavBarSec from '@/components/NavBarSec.vue'
+import NavBarSec from "@/components/NavBarSec.vue";
 
 export default {
     name: "HomeView",

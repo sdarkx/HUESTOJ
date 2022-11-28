@@ -16,14 +16,18 @@
                     prop="id"
                     label="#"
                     align="center"
-                    width="60%"
+                    width="65%"
                 ></el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="url"
                     label="Name"
                     align="left"
                     width="950%"
-                />
+                >
+                <template v-slot="scope">
+                    <a :href="scope.row.url" target="" class="buttonText">{{ scope.row.name }}</a>
+                </template>
+                </el-table-column>
                 <el-table-column
                     prop="rating"
                     label="Rating"
@@ -43,7 +47,7 @@
 
 <script>
 import ContentBase from "../../components/ContentBase.vue";
-import NavBarSec from '@/components/NavBarSec.vue'
+import NavBarSec from "@/components/NavBarSec.vue";
 
 import { ElTable } from "element-plus";
 
@@ -54,32 +58,35 @@ export default {
         ElTable,
         NavBarSec,
     },
-    methods: {
-    },
+    methods: {},
     data() {
         return {
             tableData: [
                 {
                     id: "1000",
                     name: "A+B problem",
+                    url: "#",
                     rating: "900",
                     accept: "13478",
                 },
                 {
                     id: "1001",
+                    url: "#",
                     name: "binary search",
                     rating: "1000",
                     accept: "9845",
                 },
                 {
                     id: "1002",
+                    url: "#",
                     name: "tree",
                     rating: "1200",
                     accept: "3483",
                 },
                 {
                     id: "1003",
-                    name: "Friday",
+                    url: "#",
+                    name: "123",
                     rating: "3500",
                     accept: "628",
                 },

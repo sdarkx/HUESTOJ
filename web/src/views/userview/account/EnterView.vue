@@ -1,51 +1,72 @@
 <template>
-    <div class="login-account">
-        <div class="loginRoot" @click.prevent="useraccountlogin">
-            <h3 class="loginTitle">登陆</h3>
-
-            <!-- <el-form-item label="*账号">
+    <div class="loginRoot">
+        <div class="loginTitle">
+            <p>登录</p>
+        </div>
+        <el-form
+            :model="loginform"
+            ref="loginform"
+            class="demo-ruleForm"
+            status-icon
+            label-position="right"
+            label-width="80px"
+        >
+            <!-- 邮箱 -->
+            <el-form-item
+                prop="uEmail"
+                label="邮箱"
+                :rules="[
+                    {
+                        required: true,
+                        message: '请输入邮箱地址',
+                        trigger: 'blur',
+                    },
+                    {
+                        type: 'email',
+                        message: '请输入正确的邮箱地址',
+                        trigger: ['blur', 'change'],
+                    },
+                ]"
+            >
+                <el-input v-model="loginform.uEmail"></el-input>
+            </el-form-item>
+            <!-- 密码 -->
+            <el-form-item
+                prop="uPassword"
+                label="密码"
+                :rules="[
+                    {
+                        required: true,
+                        message: '请输入密码',
+                        trigger: 'blur',
+                    },
+                ]"
+            >
                 <el-input
-                    type="text"
-                    auto-complete="off"
-                    placeholder="请输入用户名"
+                    type="password"
+                    v-model="loginform.uPassword"
+                    autocomplete="off"
                 ></el-input>
             </el-form-item>
-            <el-form-item label="*密码">
-                <el-input
-                    type="password"
-                    auto-complete="off"
-                    placeholder="请输入密码"
-                ></el-input>
-            </el-form-item> -->
-            <div class="form-floating mb-3">
-                <input
-                    type="email"
-                    class="form-control"
-                    id="floatingInput"
-                    placeholder="name@example.com"
-                />
-                <label for="floatingInput">Email address</label>
-            </div>
-            <div class="form-floating">
-                <input
-                    type="password"
-                    class="form-control"
-                    id="floatingPassword"
-                    placeholder="Password"
-                />
-                <label for="floatingPassword">Password</label>
-            </div>
-
-            <el-button style="width: 100%; margin-top: 15px;">登陆</el-button>
+            <el-form-item>
+                <el-button
+                    type="primary"
+                    style="width: 88%"
+                    @click="submitForm('loginform')"
+                    >登录</el-button
+                >
+            </el-form-item>
+        </el-form>
+        <div>
             <el-link
                 @click="forgotpassword"
-                style="font-size: 12px; margin-top: 5px"
+                style="font-size: 12px; margin-left: 21%; "
                 >忘记密码?</el-link
             >
             <el-link
                 @click="toregister"
-                style="font-size: 12px; margin-top: 5px; margin-left: 122px"
-                >没有密码?点我注册</el-link
+                style="font-size: 12px; margin-left: 143px"
+                >没有账号?点我注册</el-link
             >
         </div>
     </div>
@@ -55,24 +76,38 @@
 import router from "../../../router/index";
 
 export default {
-    name: "ContestView",
+    name: "EnterView",
     components: {},
     props: {},
     data() {
-        return {};
+        return {
+            loginform: {
+                uEmail: "",
+                uPassword: "",
+            },
+        };
     },
     watch: {},
     methods: {
         // 两个页面跳转
         forgotpassword() {
+            // 忘记密码没写
             router.push({ name: "EnterView" });
         },
         toregister() {
             router.push({ name: "RegisterView" });
         },
-        // 登录
-        useraccountlogin() {
-            console.log("login");
+        // submit
+        submitForm() {
+            this.$refs.loginform.validate((valid) => {
+                if (valid) {
+                    console.log(this.loginform);
+                    console.log("ok");
+                } else {
+                    console.log("error submit!!");
+                    return false;
+                }
+            });
         },
     },
 };
@@ -83,9 +118,9 @@ export default {
     border-radius: 15px;
     background-clip: padding-box;
     /* margin: 50px auto; */
-    margin-top: 12%;
-    margin-left: 38%;
-    width: 350px;
+    margin-top: 8%;
+    margin-left: 34%;
+    width: 450px;
     padding: 15px 35px;
     background: rgb(255, 255, 255);
     border: 1px solid #ffffff;
@@ -95,5 +130,6 @@ export default {
     margin: 15px auto 20px auto;
     text-align: center;
     color: #543a3a;
+    font-size: 32px;
 }
 </style>
