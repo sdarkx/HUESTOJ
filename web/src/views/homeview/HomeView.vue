@@ -2,16 +2,21 @@
     <NavBarSec />
     <ContentBase>
         <div>
-            <textarea style="text-align: center;" v-model="markdown"></textarea>
+            <textarea style="text-align: center" v-model="markdown"></textarea>
             <div v-html="markdownToHtml"></div>
+        </div>
+        <div>
+            <router-link :to="{ name: 'TestView' }" style=""
+                >ojcoder</router-link
+            >
         </div>
     </ContentBase>
 </template>
 
 <script>
 import ContentBase from "../../components/ContentBase.vue";
-import { marked } from 'marked';
-import NavBarSec from '@/components/NavBarSec.vue'
+import { marked } from "marked";
+import NavBarSec from "@/components/NavBarSec.vue";
 
 export default {
     name: "HomeView",
@@ -21,14 +26,14 @@ export default {
     },
     data() {
         return {
-            markdown: "`Hello World`"
+            markdown: "`Hello World`",
         };
     },
     computed: {
-        markdownToHtml(){
+        markdownToHtml() {
             return marked(this.markdown);
-        }
-    }
+        },
+    },
 };
 </script>
 

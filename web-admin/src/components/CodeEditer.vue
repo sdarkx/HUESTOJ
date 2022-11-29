@@ -1,8 +1,4 @@
 <template>
-    <div>
-        null
-    </div>
-    <!-- 代码框 -->
     <div ref="main" :style="{ width: width, height, height }"></div>
 </template>
 
@@ -10,7 +6,7 @@
 import * as monaco from "monaco-editor";
 
 export default {
-    name: "CodeEditer",
+    name: "OJmonaco",
     props: {
         width: {
             type: String,
@@ -18,17 +14,17 @@ export default {
         },
         height: {
             type: String,
-            default: "500px",
+            default: "300px",
         },
         language: {
             type: String,
-            default: "c",
+            default: "javascript",
         },
     },
     data() {
         return {
             monacoEditor: null,
-            value: "#include <iostream>\n\nusing namespace std;\n\nint main(){\n\n\treturn 0;\n}\n",
+            value: "",
         };
     },
     mounted() {

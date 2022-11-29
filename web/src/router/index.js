@@ -8,6 +8,8 @@ import NotFoundView from '../views/notfoundview/NotFoundView.vue'
 import EnterView from '../views/userview/account/EnterView.vue'
 import RegisterView from '../views/userview/account/RegisterView.vue'
 import WikiView from '../views/wikiview/WikiView.vue'
+// 测试页面
+import TestView from '../views/testview/TestView.vue'
 
 const routes = [
     {
@@ -59,6 +61,12 @@ const routes = [
         path: '/register',
         name: 'RegisterView',
         component: RegisterView
+    },
+    // 测试路由
+    {
+        path: '/ojcode',
+        name: 'TestView',
+        component: TestView
     },
     {
         path: "/:catchAll(.*)",

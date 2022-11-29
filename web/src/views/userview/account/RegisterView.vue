@@ -116,6 +116,7 @@ export default {
                 uNickname: [
                     {
                         required: true,
+                        message: "请输入昵称",
                     },
                 ],
                 uEmail: [
