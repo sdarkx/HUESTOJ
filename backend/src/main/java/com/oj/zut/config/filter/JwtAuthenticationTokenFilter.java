@@ -1,9 +1,3 @@
-// -*- coding = utf-8 -*-
-// @Time : 2022/11/29 0029 22:10
-// @Author : x_DARK_
-// @File : JwtAuthenticationTokenFilter.java
-// @Software : IntelliJ IDEA
-
 package com.oj.zut.config.filter;
 
 import com.oj.zut.mapper.UserMapper;
@@ -33,6 +27,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
         String token = request.getHeader("Authorization");
+
         if (!StringUtils.hasText(token) || !token.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
