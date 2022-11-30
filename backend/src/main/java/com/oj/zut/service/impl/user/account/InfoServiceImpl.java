@@ -1,3 +1,9 @@
+// -*- coding = utf-8 -*-
+// @Time : 2022/11/22 0022 13:38
+// @Author : x_DARK_
+// @File : InfoServiceImpl.java
+// @Software : IntelliJ IDEA
+
 package com.oj.zut.service.impl.user.account;
 
 import com.oj.zut.pojo.User;
@@ -17,14 +23,14 @@ public class InfoServiceImpl implements InfoService {
         UsernamePasswordAuthenticationToken authentication =
                 (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 
-        UserDetailsImpl loginUser = (UserDetailsImpl) authentication.getPrincipal();
-        User user = loginUser.getUser();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        User user = userDetails.getUser();
 
         Map<String, String> map = new HashMap<>();
         map.put("error_message", "success");
         map.put("id", user.getId().toString());
-        map.put("username", user.getUsername());
-        map.put("password", user.getPassword());
+        map.put("username", user.getUUsername());
+        map.put("password", user.getUPassword());
         return map;
     }
 }

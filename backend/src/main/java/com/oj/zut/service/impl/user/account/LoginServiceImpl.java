@@ -1,3 +1,9 @@
+// -*- coding = utf-8 -*-
+// @Time : 2022/11/22 0022 13:38
+// @Author : x_DARK_
+// @File : LoginServiceImpl.java
+// @Software : IntelliJ IDEA
+
 package com.oj.zut.service.impl.user.account;
 
 import com.oj.zut.pojo.User;
@@ -21,6 +27,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public Map<String, String> getToken(String username, String password) {
+        System.out.println("Before : loginServiceImpl : " + username + " + " + password);
+
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(username, password);
 
@@ -32,6 +40,8 @@ public class LoginServiceImpl implements LoginService {
         Map<String, String> map = new HashMap<>();
         map.put("error_message", "success");
         map.put("token", jwt);
+
+        System.out.println("After : loginServiceImpl : " + username + " + " + password);
 
         return map;
     }

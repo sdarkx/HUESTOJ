@@ -1,3 +1,9 @@
+// -*- coding = utf-8 -*-
+// @Time : 2022/11/22 0022 13:38
+// @Author : x_DARK_
+// @File : UserDetailsImpl.java
+// @Software : IntelliJ IDEA
+
 package com.oj.zut.service.impl.utils;
 
 import com.oj.zut.pojo.User;
@@ -23,12 +29,12 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return user.getUPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getUUsername();
     }
 
     @Override

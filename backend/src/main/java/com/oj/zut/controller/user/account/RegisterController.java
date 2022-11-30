@@ -1,3 +1,9 @@
+// -*- coding = utf-8 -*-
+// @Time : 2022/11/22 0022 13:38
+// @Author : x_DARK_
+// @File : RegisterController.java
+// @Software : IntelliJ IDEA
+
 package com.oj.zut.controller.user.account;
 
 import com.oj.zut.service.impl.utils.account.RegisterService;
@@ -18,6 +24,6 @@ public class RegisterController {
         String username = map.get("username");
         String password = map.get("password");
         String confirmedPassword = map.get("confirmedPassword");
-        return registerService.register(username, password, confirmedPassword);
+        return registerService.register(username, password);
     }
 }

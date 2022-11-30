@@ -1,3 +1,9 @@
+// -*- coding = utf-8 -*-
+// @Time : 2022/11/22 0022 13:38
+// @Author : x_DARK_
+// @File : RegisterServiceImpl.java
+// @Software : IntelliJ IDEA
+
 package com.oj.zut.service.impl.user.account;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -21,13 +27,15 @@ public class RegisterServiceImpl implements RegisterService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public Map<String, String> register(String username, String password, String confirmedPassword) {
+    public Map<String, String> register(String username, String password) {
         Map<String, String> map = new HashMap<>();
 
+        // 用户名去空格
         username = username.trim();
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
+
         List<User> users = userMapper.selectList(queryWrapper);
         if (!users.isEmpty()) {
             map.put("error_message", "用户名已存在");
@@ -35,8 +43,9 @@ public class RegisterServiceImpl implements RegisterService {
         }
 
         String encodedPassword = passwordEncoder.encode(password);
-        String photo = "https://cdn.acwing.com/media/user/profile/photo/1_lg_844c66b332.jpg";
-        User user = new User(null, username, encodedPassword);
+        User user = new User();
+        user.setUUsername(username);
+        user.setUPassword(encodedPassword);
         userMapper.insert(user);
 
         map.put("error_message", "success");

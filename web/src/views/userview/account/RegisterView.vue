@@ -14,13 +14,6 @@
             label-position="right"
             label-width="80px"
         >
-            <!-- 昵称 -->
-            <el-form-item label="昵称" prop="uNickname">
-                <el-input
-                    v-model="registerform.uNickname"
-                    autocomplete="off"
-                ></el-input>
-            </el-form-item>
             <!-- 邮箱 -->
             <el-form-item label="邮箱" prop="uEmail">
                 <el-input
@@ -41,6 +34,13 @@
                 <el-input
                     type="password"
                     v-model="registerform.checkPass"
+                    autocomplete="off"
+                ></el-input>
+            </el-form-item>
+            <!-- 昵称 -->
+            <el-form-item label="昵称" prop="uNickname">
+                <el-input
+                    v-model="registerform.uNickname"
                     autocomplete="off"
                 ></el-input>
             </el-form-item>

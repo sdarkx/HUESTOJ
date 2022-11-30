@@ -1,3 +1,9 @@
+// -*- coding = utf-8 -*-
+// @Time : 2022/11/22 0022 13:38
+// @Author : x_DARK_
+// @File : SecurityConfig.java
+// @Software : IntelliJ IDEA
+
 package com.oj.zut.config;
 
 import com.oj.zut.config.filter.JwtAuthenticationTokenFilter;

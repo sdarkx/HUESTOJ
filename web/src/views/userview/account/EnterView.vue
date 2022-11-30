@@ -13,7 +13,7 @@
         >
             <!-- 邮箱 -->
             <el-form-item
-                prop="uEmail"
+                prop="username"
                 label="邮箱"
                 :rules="[
                     {
@@ -28,11 +28,11 @@
                     },
                 ]"
             >
-                <el-input v-model="loginform.uEmail"></el-input>
+                <el-input v-model="loginform.username"></el-input>
             </el-form-item>
             <!-- 密码 -->
             <el-form-item
-                prop="uPassword"
+                prop="password"
                 label="密码"
                 :rules="[
                     {
@@ -44,15 +44,18 @@
             >
                 <el-input
                     type="password"
-                    v-model="loginform.uPassword"
+                    v-model="loginform.password"
                     autocomplete="off"
                 ></el-input>
             </el-form-item>
+            <div>
+                <span class="error-message">{{ error_message }}</span>
+            </div>
             <el-form-item>
                 <el-button
                     type="primary"
                     style="width: 88%"
-                    @click="submitForm('loginform')"
+                    @click="submit('loginform')"
                     >登录</el-button
                 >
             </el-form-item>
@@ -74,6 +77,7 @@
 
 <script>
 import router from "../../../router/index";
+import { useStore } from 'vuex'
 
 export default {
     name: "EnterView",
@@ -82,27 +86,46 @@ export default {
     data() {
         return {
             loginform: {
-                uEmail: "",
-                uPassword: "",
+                username: "",
+                password: "",
             },
+            error_message: '',
         };
     },
     watch: {},
     methods: {
         // 两个页面跳转
         forgotpassword() {
-            // 忘记密码没写
+            // 忘记密码--还没写
             router.push({ name: "EnterView" });
         },
         toregister() {
             router.push({ name: "RegisterView" });
         },
         // submit
-        submitForm() {
+        submit() {
+            const store = useStore();
+
             this.$refs.loginform.validate((valid) => {
                 if (valid) {
                     console.log(this.loginform);
                     console.log("ok");
+
+                    store.dispatch("login", {
+                        username: this.loginform.username,
+                        password: this.loginform.password,
+                        success() {
+                            store.dispatch("getinfo", {
+                                success() {
+                                    router.push({ name: 'home' });
+                                    console.log(store.state.user);
+                                }
+                            })
+                        },
+                        error() {
+                            this.error_message.value = "用户名或密码错误";
+                        }
+                    })
                 } else {
                     console.log("error submit!!");
                     return false;
