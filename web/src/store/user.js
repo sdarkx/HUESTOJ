@@ -23,12 +23,15 @@ export default {
             state.username = "";
             state.token = "";
             state.is_login = false;
+        },
+        updatePullingInfo(state, pulling_info) {
+            state.pulling_info = pulling_info;
         }
     },
     actions: {
         login(context, data) {
             $.ajax({
-                url: "http://127.0.0.1:8091/user/account/token/",
+                url: "http://localhost:8091/user/account/token/",
                 type: "post",
                 data: {
                     username: data.username,

@@ -10,6 +10,7 @@
   "dependencies": {
     "@kangc/v-md-editor": "next",
     "@popperjs/core": "^2.11.6",
+    "axios": "^1.2.0",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^5.2.2",
     "core-js": "^3.8.3",

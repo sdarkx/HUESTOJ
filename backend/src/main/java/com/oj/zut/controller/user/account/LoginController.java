@@ -8,6 +8,7 @@ package com.oj.zut.controller.user.account;
 
 import com.oj.zut.service.impl.utils.account.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    @CrossOrigin(origins = "http://localhost:8091/user/account/token/", maxAge = 3600)
     @PostMapping("/user/account/token/")
     public Map<String, String> getToken(@RequestParam Map<String, String> map) {
         String username = map.get("username");

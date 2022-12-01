@@ -21,7 +21,7 @@ public class User {
 
     // 数据库自增
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer Id;
+    private Integer id;
     private String uUsername;
     private String uPassword;
     private String uNickname;

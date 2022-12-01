@@ -4,58 +4,29 @@
             <p>登录</p>
         </div>
         <el-form
+            :rules="loginformrules"
             :model="loginform"
-            ref="loginform"
+            ref="loginformrules"
             class="demo-ruleForm"
             status-icon
             label-position="right"
             label-width="80px"
         >
             <!-- 邮箱 -->
-            <el-form-item
-                prop="username"
-                label="邮箱"
-                :rules="[
-                    {
-                        required: true,
-                        message: '请输入邮箱地址',
-                        trigger: 'blur',
-                    },
-                    {
-                        type: 'email',
-                        message: '请输入正确的邮箱地址',
-                        trigger: ['blur', 'change'],
-                    },
-                ]"
-            >
-                <el-input v-model="loginform.username"></el-input>
+            <el-form-item label="邮箱" prop="username">
+                <el-input type="text" v-model="loginform.username"></el-input>
             </el-form-item>
             <!-- 密码 -->
-            <el-form-item
-                prop="password"
-                label="密码"
-                :rules="[
-                    {
-                        required: true,
-                        message: '请输入密码',
-                        trigger: 'blur',
-                    },
-                ]"
-            >
+            <el-form-item label="密码" prop="password">
                 <el-input
                     type="password"
                     v-model="loginform.password"
-                    autocomplete="off"
+                    show-password
                 ></el-input>
             </el-form-item>
-            <div>
-                <span class="error-message">{{ error_message }}</span>
-            </div>
+
             <el-form-item>
-                <el-button
-                    type="primary"
-                    style="width: 88%"
-                    @click="submit('loginform')"
+                <el-button type="primary" style="width: 88%" @click="submitform"
                     >登录</el-button
                 >
             </el-form-item>
@@ -63,7 +34,7 @@
         <div>
             <el-link
                 @click="forgotpassword"
-                style="font-size: 12px; margin-left: 21%; "
+                style="font-size: 12px; margin-left: 21%"
                 >忘记密码?</el-link
             >
             <el-link
@@ -77,22 +48,83 @@
 
 <script>
 import router from "../../../router/index";
-import { useStore } from 'vuex'
+import { ElMessage } from "element-plus";
+import { useStore } from "vuex";
+import { reactive } from "vue";
 
 export default {
     name: "EnterView",
-    components: {},
-    props: {},
-    data() {
+    setup() {
+        let loginform = reactive({
+            username: "",
+            password: "",
+        });
+        const loginformrules = reactive({
+            username: [
+                {
+                    required: true,
+                    message: "请输入邮箱地址",
+                    trigger: "blur",
+                },
+                {
+                    type: "email",
+                    message: "请输入正确的邮箱地址",
+                    trigger: ["blur", "change"],
+                },
+            ],
+            password: [
+                {
+                    required: true,
+                    message: "请输入密码",
+                    trigger: "blur",
+                },
+            ],
+        });
+
+        const store = useStore();
+        const jwt_token = localStorage.getItem("jwt_token");
+        if (jwt_token) {
+            store.commit("updateToken", jwt_token);
+            store.dispatch("getinfo", {
+                success() {
+                    router.push({ name: "home" });
+                    store.commit("updatePullingInfo", false);
+                },
+                error() {
+                    store.commit("updatePullingInfo", false);
+                },
+            });
+        } else {
+            store.commit("updatePullingInfo", false);
+        }
+
+        const submitform = () => {
+            // 提交表单登录
+            store.dispatch("login", {
+                username: loginform.username,
+                password: loginform.password,
+                success() {
+                    // 登陆成功
+                    ElMessage.success("登陆成功");
+                    store.dispatch("getinfo", {
+                        success() {
+                            router.push({ name: "home" });
+                        },
+                    });
+                },
+                error() {
+                    // 登陆失败
+                    ElMessage.error("登陆失败捏");
+                },
+            });
+        };
+
         return {
-            loginform: {
-                username: "",
-                password: "",
-            },
-            error_message: '',
+            submitform,
+            loginform,
+            loginformrules,
         };
     },
-    watch: {},
     methods: {
         // 两个页面跳转
         forgotpassword() {
@@ -101,36 +133,6 @@ export default {
         },
         toregister() {
             router.push({ name: "RegisterView" });
-        },
-        // submit
-        submit() {
-            const store = useStore();
-
-            this.$refs.loginform.validate((valid) => {
-                if (valid) {
-                    console.log(this.loginform);
-                    console.log("ok");
-
-                    store.dispatch("login", {
-                        username: this.loginform.username,
-                        password: this.loginform.password,
-                        success() {
-                            store.dispatch("getinfo", {
-                                success() {
-                                    router.push({ name: 'home' });
-                                    console.log(store.state.user);
-                                }
-                            })
-                        },
-                        error() {
-                            this.error_message.value = "用户名或密码错误";
-                        }
-                    })
-                } else {
-                    console.log("error submit!!");
-                    return false;
-                }
-            });
         },
     },
 };
