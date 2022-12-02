@@ -4,8 +4,8 @@
             <p>登录</p>
         </div>
         <el-form
-            :rules="loginformrules"
             :model="loginform"
+            :rules="loginformrules"
             ref="loginformrules"
             class="demo-ruleForm"
             status-icon

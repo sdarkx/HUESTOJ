@@ -20,13 +20,13 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @CrossOrigin(origins = "http://localhost:8091/user/account/token/", maxAge = 3600)
+    //@CrossOrigin(origins = "http://localhost:8091/user/account/token/", maxAge = 3600)
     @PostMapping("/user/account/token/")
     public Map<String, String> getToken(@RequestParam Map<String, String> map) {
         String username = map.get("username");
         String password = map.get("password");
 
-        System.out.println(username + ' ' + password);
+        //System.out.println(username + ' ' + password);
 
         return loginService.getToken(username, password);
     }

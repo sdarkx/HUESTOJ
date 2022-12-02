@@ -11,19 +11,39 @@
                         style="height: 50px"
                     />
                 </div>
-                <div class="" style="">
-                    <div>
+                <div>
+                    <div v-if="$store.state.user.is_login">
+                        <el-dropdown>
+                            <el-button v-if="!$store.state.user.nickname !== null">
+                                {{ $store.state.user.nickname }}<arrow-down />
+                            </el-button>
+                            <el-button v-else-if="!$store.state.user.username !== null">
+                                {{ $store.state.user.username }}<arrow-down />
+                            </el-button>
+                            <template #dropdown>
+                                <el-dropdown-menu>
+                                    <el-dropdown-item
+                                        >You Profile</el-dropdown-item
+                                    >
+                                    <el-dropdown-item @click="logout"
+                                        >Logout</el-dropdown-item
+                                    >
+                                </el-dropdown-menu>
+                            </template>
+                        </el-dropdown>
+                    </div>
+                    <div v-else-if="!$store.state.user.is_login">
                         <el-button
                             link="true"
                             @click="enter"
-                            style="font-size: 17px;"
+                            style="font-size: 17px"
                             >Enter</el-button
                         >
                         |
                         <el-button
                             link="true"
                             @click="register"
-                            style="font-size: 17px; margin-left: -2px;"
+                            style="font-size: 17px; margin-left: -2px"
                             >Register</el-button
                         >
                     </div>
@@ -34,12 +54,30 @@
 </template>
 
 <script>
-import { ElButton } from "element-plus";
+import { ElButton, ElMessage } from "element-plus";
+import { useRoute } from "vue-router";
+import { computed } from "vue";
+import { useStore } from "vuex";
 
 export default {
     name: "NavBar",
     components: {
         ElButton,
+    },
+    setup() {
+        const store = useStore();
+        const route = useRoute();
+        let route_name = computed(() => route.name);
+
+        const logout = () => {
+            store.dispatch("logout");
+            ElMessage.info("退出登陆");
+        };
+
+        return {
+            route_name,
+            logout,
+        };
     },
     methods: {
         enter() {

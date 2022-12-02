@@ -31,21 +31,21 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public Map<String, String> getToken(String u_username, String u_password) {
-        System.out.println("Before : loginServiceImpl : " + u_username + " + " + u_password);
+        //System.out.println("Before : loginServiceImpl : " + u_username + " + " + u_password);
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(u_username, u_password);
 
-        System.out.println("authenticationToken : " + authenticationToken);
+        //System.out.println("authenticationToken : " + authenticationToken);
 
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);  // 登录失败，会自动处理
 
-        System.out.println("authenticate : " + authenticate);
+        //System.out.println("authenticate : " + authenticate);
 
         UserDetailsImpl loginUser = (UserDetailsImpl) authenticate.getPrincipal();
         User user = loginUser.getUser();
 
-        System.out.println("Services user : " + user);
+        //System.out.println("Services user : " + user);
 
         String jwt = JwtUtil.createJWT(user.getId().toString());
 
@@ -58,7 +58,7 @@ public class LoginServiceImpl implements LoginService {
         map.put("error_message", "success");
         map.put("token", jwt);
 
-        System.out.println("After : loginServiceImpl : " + u_username + " + " + u_password);
+        //System.out.println("After : loginServiceImpl : " + u_username + " + " + u_password);
 
         return map;
     }

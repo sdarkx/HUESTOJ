@@ -7,25 +7,25 @@
         </div>
         <el-form
             :model="registerform"
-            ref="registerform"
-            :rules="rules"
+            :rules="registerformrules"
+            ref="registerformrules"
             class="demo-ruleForm"
             status-icon
             label-position="right"
             label-width="80px"
         >
             <!-- 邮箱 -->
-            <el-form-item label="邮箱" prop="uEmail">
+            <el-form-item label="邮箱" prop="username">
                 <el-input
-                    v-model="registerform.uEmail"
+                    v-model="registerform.username"
                     autocomplete="off"
                 ></el-input>
             </el-form-item>
             <!-- 密码 -->
-            <el-form-item label="密码" prop="uPassword">
+            <el-form-item label="密码" prop="password">
                 <el-input
                     type="password"
-                    v-model="registerform.uPassword"
+                    v-model="registerform.password"
                     autocomplete="off"
                 ></el-input>
             </el-form-item>
@@ -38,22 +38,22 @@
                 ></el-input>
             </el-form-item>
             <!-- 昵称 -->
-            <el-form-item label="昵称" prop="uNickname">
+            <el-form-item label="昵称" prop="nickname">
                 <el-input
-                    v-model="registerform.uNickname"
+                    v-model="registerform.nickname"
                     autocomplete="off"
                 ></el-input>
             </el-form-item>
             <!-- 绑定学号？真实姓名 学号 -->
             <el-form-item label="姓名" prop="uRealname">
                 <el-input
-                    v-model="registerform.uRealname"
+                    v-model="registerform.realname"
                     autocomplete="off"
                 ></el-input>
             </el-form-item>
             <el-form-item label="学号" prop="uStuid">
                 <el-input
-                    v-model="registerform.uStuid"
+                    v-model="registerform.userstuid"
                     autocomplete="off"
                 ></el-input>
             </el-form-item>
@@ -62,28 +62,74 @@
                 <el-button
                     type="primary"
                     style="width: 88%"
-                    @click="submitForm('registerform')"
+                    @click="submitregisterForm"
                     >注册</el-button
                 >
             </el-form-item>
         </el-form>
         <div>
-            <el-link
-                @click="tologin"
-                style="font-size: 12px; margin-left: 21%"
+            <el-link @click="tologin" style="font-size: 12px; margin-left: 21%"
                 >已有账号?点我登陆</el-link
             >
         </div>
     </div>
 </template>
 <script>
+import { reactive } from "vue";
 import router from "../../../router/index";
+import { ElMessage } from "element-plus";
 
 export default {
     name: "RegisterView",
-    components: {},
+    setup() {
+        let registerform = reactive({
+            username: "",
+            password: "",
+            checkPass: "",
+            nickname: "",
+            realname: "",
+            userstuid: "",
+        });
 
-    data() {
+        const registerformrules = reactive({
+            // 账号 邮箱验证
+            username: [
+                {
+                    required: true,
+                    message: "请输入邮箱地址",
+                    trigger: "blur",
+                },
+                {
+                    type: "email",
+                    message: "请输入正确的邮箱地址",
+                    trigger: ["blur", "change"],
+                },
+            ],
+            // 密码验证
+            password: [
+                {
+                    required: true,
+                    validator: validatePass,
+                    trigger: "blur",
+                },
+            ],
+            checkPass: [
+                {
+                    required: true,
+                    validator: validatePass2,
+                    trigger: "blur",
+                },
+            ],
+            // 数据库非必须
+            nickname: [
+                {
+                    required: true,
+                    message: "请输入昵称",
+                },
+            ],
+        });
+
+        // 密码校验
         var validatePass = (rule, value, callback) => {
             if (value === "") {
                 callback(new Error("请输入密码"));
@@ -103,68 +149,24 @@ export default {
                 callback();
             }
         };
+
+        // 注册表单提交
+        const submitregisterForm = () => {
+            ElMessage.success("提交成功");
+        };
+
         return {
-            registerform: {
-                uNickname: "",
-                uEmail: "",
-                uPassword: "",
-                checkPass: "",
-                uRealname: "",
-                uStuid: "",
-            },
-            rules: {
-                uNickname: [
-                    {
-                        required: true,
-                        message: "请输入昵称",
-                    },
-                ],
-                uEmail: [
-                    {
-                        required: true,
-                        message: "请输入邮箱地址",
-                        trigger: "blur",
-                    },
-                    {
-                        type: "email",
-                        message: "请输入正确的邮箱地址",
-                        trigger: ["blur", "change"],
-                    },
-                ],
-                uPassword: [
-                    {
-                        required: true,
-                        validator: validatePass,
-                        trigger: "blur",
-                    },
-                ],
-                checkPass: [
-                    {
-                        required: true,
-                        validator: validatePass2,
-                        trigger: "blur",
-                    },
-                ],
-            },
+            registerform,
+            registerformrules,
+            validatePass,
+            validatePass2,
+            submitregisterForm,
         };
     },
-    watch: {},
     methods: {
         // 两个页面跳转
         tologin() {
             router.push({ name: "EnterView" });
-        },
-        // 表单提交
-        submitForm() {
-            this.$refs.registerform.validate((valid) => {
-                if (valid) {
-                    console.log(this.registerform);
-                    console.log("ok");
-                } else {
-                    console.log("error submit!!");
-                    return false;
-                }
-            });
         },
     },
 };

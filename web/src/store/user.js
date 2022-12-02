@@ -5,6 +5,7 @@ export default {
     state: {
         id: "",
         username: "",
+        nickname: "",
         token: "",
         is_login: false,
         pulling_info: true,
@@ -15,6 +16,7 @@ export default {
         updateUser(state, user) {
             state.id = user.id;
             state.username = user.username;
+            state.nickname = user.nickname;
             state.is_login = user.is_login;
         },
         updateToken(state, token) {
@@ -23,6 +25,7 @@ export default {
         logout(state) {
             state.id = "";
             state.username = "";
+            state.nickname = "";
             state.token = "";
             state.is_login = false;
         },
@@ -69,6 +72,7 @@ export default {
                         });
                         data.success(resp);
                         ElMessage.success('获取信息成功')
+                        console.log(resp);
                     } else {
                         ElMessage.success('获取信息失败')
                         data.error(resp);

@@ -19,7 +19,7 @@ public class InfoController {
     @Autowired
     private InfoService infoService;
 
-    @CrossOrigin(origins = "http://localhost:8091/user/account/info/", maxAge = 3600)
+    //@CrossOrigin(origins = "http://localhost:8091/user/account/info/", maxAge = 3600)
     @GetMapping("/user/account/info/")
     public Map<String, String> getInfo() {
         return infoService.getinfo();
