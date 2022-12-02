@@ -6,7 +6,6 @@
 
 package com.oj.zut.service.impl.user.account;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.oj.zut.mapper.UserMapper;
 import com.oj.zut.pojo.User;
 import com.oj.zut.service.impl.utils.UserDetailsImpl;
@@ -31,30 +30,35 @@ public class LoginServiceImpl implements LoginService {
     private UserMapper userMapper;
 
     @Override
-    public Map<String, String> getToken(String username, String password) {
-        System.out.println("Before : loginServiceImpl : " + username + " + " + password);
+    public Map<String, String> getToken(String u_username, String u_password) {
+        System.out.println("Before : loginServiceImpl : " + u_username + " + " + u_password);
 
-        //UsernamePasswordAuthenticationToken authenticationToken =
-        //        new UsernamePasswordAuthenticationToken(username, password);
-        //
-        //Authentication authenticate = authenticationManager.authenticate(authenticationToken);  // 登录失败，会自动处理
-        //UserDetailsImpl loginUser = (UserDetailsImpl) authenticate.getPrincipal();
-        //User user = loginUser.getUser();
-        //
-        //System.out.println("Services user : " + user);
-        //
-        //String jwt = JwtUtil.createJWT(user.getId().toString());
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(u_username, u_password);
 
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("u_username", username);
-        queryWrapper.eq("u_password", password);
-        userMapper.selectOne(queryWrapper);
+        System.out.println("authenticationToken : " + authenticationToken);
+
+        Authentication authenticate = authenticationManager.authenticate(authenticationToken);  // 登录失败，会自动处理
+
+        System.out.println("authenticate : " + authenticate);
+
+        UserDetailsImpl loginUser = (UserDetailsImpl) authenticate.getPrincipal();
+        User user = loginUser.getUser();
+
+        System.out.println("Services user : " + user);
+
+        String jwt = JwtUtil.createJWT(user.getId().toString());
+
+        //QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        //queryWrapper.eq("u_username", username);
+        //queryWrapper.eq("u_password", password);
+        //userMapper.selectOne(queryWrapper);
 
         Map<String, String> map = new HashMap<>();
         map.put("error_message", "success");
-        //map.put("token", jwt);
+        map.put("token", jwt);
 
-        System.out.println("After : loginServiceImpl : " + username + " + " + password);
+        System.out.println("After : loginServiceImpl : " + u_username + " + " + u_password);
 
         return map;
     }

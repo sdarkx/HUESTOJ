@@ -1,3 +1,4 @@
+import { ElMessage } from 'element-plus';
 import $ from 'jquery'
 
 export default {
@@ -6,6 +7,7 @@ export default {
         username: "",
         token: "",
         is_login: false,
+        pulling_info: true,
     },
     getters: {
     },
@@ -39,6 +41,7 @@ export default {
                 },
                 success(resp) {
                     if (resp.error_message === "success") {
+                        localStorage.setItem("jwt_token", resp.token);
                         context.commit("updateToken", resp.token);
                         data.success(resp);
                     } else {
@@ -52,10 +55,11 @@ export default {
         },
         getinfo(context, data) {
             $.ajax({
-                url: "http://127.0.0.1:8091/user/account/info/",
+                url: "http://localhost:8091/user/account/info/",
                 type: "get",
                 headers: {
                     Authorization: "Bearer " + context.state.token,
+                    // headers: 'Access-Control-Allow-Origin',
                 },
                 success(resp) {
                     if (resp.error_message === "success") {
@@ -64,16 +68,20 @@ export default {
                             is_login: true,
                         });
                         data.success(resp);
+                        ElMessage.success('获取信息成功')
                     } else {
+                        ElMessage.success('获取信息失败')
                         data.error(resp);
                     }
                 },
                 error(resp) {
+                    ElMessage.error('获取信息失败')
                     data.error(resp);
                 }
             })
         },
         logout(context) {
+            localStorage.removeItem("jwt_token");
             context.commit("logout");
         }
     },
