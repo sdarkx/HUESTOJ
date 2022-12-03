@@ -6,9 +6,8 @@
 
 package com.oj.zut.controller.user.account;
 
-import com.oj.zut.service.impl.utils.account.LoginService;
+import com.oj.zut.service.utils.user.account.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

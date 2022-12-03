@@ -4,7 +4,7 @@
 // @File : InfoService.java
 // @Software : IntelliJ IDEA
 
-package com.oj.zut.service.impl.utils.account;
+package com.oj.zut.service.utils.user.account;
 
 import java.util.Map;
 

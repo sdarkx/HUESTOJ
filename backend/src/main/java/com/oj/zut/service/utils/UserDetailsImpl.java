@@ -4,7 +4,7 @@
 // @File : UserDetailsImpl.java
 // @Software : IntelliJ IDEA
 
-package com.oj.zut.service.impl.utils;
+package com.oj.zut.service.utils;
 
 import com.oj.zut.pojo.User;
 import lombok.AllArgsConstructor;

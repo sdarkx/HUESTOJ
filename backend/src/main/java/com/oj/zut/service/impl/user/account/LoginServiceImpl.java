@@ -8,8 +8,8 @@ package com.oj.zut.service.impl.user.account;
 
 import com.oj.zut.mapper.UserMapper;
 import com.oj.zut.pojo.User;
-import com.oj.zut.service.impl.utils.UserDetailsImpl;
-import com.oj.zut.service.impl.utils.account.LoginService;
+import com.oj.zut.service.utils.UserDetailsImpl;
+import com.oj.zut.service.utils.user.account.LoginService;
 import com.oj.zut.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

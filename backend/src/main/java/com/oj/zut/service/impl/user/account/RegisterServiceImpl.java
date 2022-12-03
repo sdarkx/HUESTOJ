@@ -9,7 +9,7 @@ package com.oj.zut.service.impl.user.account;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.oj.zut.mapper.UserMapper;
 import com.oj.zut.pojo.User;
-import com.oj.zut.service.impl.utils.account.RegisterService;
+import com.oj.zut.service.utils.user.account.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class RegisterServiceImpl implements RegisterService {
         username = username.trim();
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username", username);
+        queryWrapper.eq("u_username", username);
 
         List<User> users = userMapper.selectList(queryWrapper);
         if (!users.isEmpty()) {

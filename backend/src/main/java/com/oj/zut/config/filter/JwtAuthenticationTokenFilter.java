@@ -8,7 +8,7 @@ package com.oj.zut.config.filter;
 
 import com.oj.zut.mapper.UserMapper;
 import com.oj.zut.pojo.User;
-import com.oj.zut.service.impl.utils.UserDetailsImpl;
+import com.oj.zut.service.utils.UserDetailsImpl;
 import com.oj.zut.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import org.jetbrains.annotations.NotNull;

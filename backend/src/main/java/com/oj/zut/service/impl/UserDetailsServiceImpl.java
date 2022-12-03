@@ -9,7 +9,7 @@ package com.oj.zut.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.oj.zut.mapper.UserMapper;
 import com.oj.zut.pojo.User;
-import com.oj.zut.service.impl.utils.UserDetailsImpl;
+import com.oj.zut.service.utils.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
