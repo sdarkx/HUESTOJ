@@ -6,6 +6,7 @@
 
 package com.oj.zut.controller.user.account;
 
+import com.oj.zut.pojo.User;
 import com.oj.zut.service.utils.user.account.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +22,6 @@ public class RegisterController {
 
     @PostMapping("/user/account/register/")
     public Map<String, String> register(@RequestParam Map<String, String> map) {
-        String username = map.get("username");
-        String password = map.get("password");
-        return registerService.register(username, password);
+        return registerService.register(map);
     }
 }

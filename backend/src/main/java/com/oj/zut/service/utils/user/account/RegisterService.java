@@ -9,5 +9,5 @@ package com.oj.zut.service.utils.user.account;
 import java.util.Map;
 
 public interface RegisterService {
-    Map<String, String> register(String username, String password);
+    Map<String, String> register(Map<String, String> map);
 }

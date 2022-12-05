@@ -78,6 +78,7 @@
 import { reactive } from "vue";
 import router from "../../../router/index";
 import { ElMessage } from "element-plus";
+import { useStore } from "vuex";
 
 export default {
     name: "RegisterView",
@@ -151,8 +152,24 @@ export default {
         };
 
         // 注册表单提交
+        const store = useStore();
         const submitregisterForm = () => {
             ElMessage.success("提交成功");
+            store.dispatch("register", {
+                username: registerform.username,
+                password: registerform.password,
+                checkPass: registerform.checkPass,
+                nickname: registerform.nickname,
+                realname: registerform.realname,
+                userstuid: registerform.userstuid,
+                success() {
+                    ElMessage.success("注册成功");
+                    router.push({ name: "EnterView" });
+                },
+                error(resp) {
+                    ElMessage.warning(resp.error_message);
+                },
+            });
         };
 
         return {

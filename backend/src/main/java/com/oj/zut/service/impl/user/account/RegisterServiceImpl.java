@@ -27,25 +27,38 @@ public class RegisterServiceImpl implements RegisterService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public Map<String, String> register(String username, String password) {
+    public Map<String, String> register(Map<String, String> data) {
+        User user = new User();
+        user.setUUsername(data.get("username"));
+        user.setUPassword(data.get("password"));
+        user.setUNickname(data.get("nickname"));
+        user.setURealname(data.get("realname"));
+        user.setUStuid(data.get("userstuid"));
+        user.setURating(0);
+
         Map<String, String> map = new HashMap<>();
 
-        // 用户名去空格
-        username = username.trim();
-
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("u_username", username);
-
-        List<User> users = userMapper.selectList(queryWrapper);
-        if (!users.isEmpty()) {
-            map.put("error_message", "用户名已存在");
+        String checkPass = data.get("checkPass");
+        if(!user.getUPassword().equals(checkPass)){
+            map.put("error_message", "两次密码不一致");
             return map;
         }
 
-        String encodedPassword = passwordEncoder.encode(password);
-        User user = new User();
-        user.setUUsername(username);
+        // 核验用户名是否合规
+        // 前端校验防君子 后端校验防小人
+
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("u_username", user.getUUsername());
+
+        List<User> users = userMapper.selectList(queryWrapper);
+        if (!users.isEmpty()) {
+            map.put("error_message", "账户已存在");
+            return map;
+        }
+
+        String encodedPassword = passwordEncoder.encode(user.getUPassword());
         user.setUPassword(encodedPassword);
+
         userMapper.insert(user);
 
         map.put("error_message", "success");

@@ -13,14 +13,15 @@
     "ant-design-vue": "^3.2.15",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^5.2.2",
+    "codemirror": "^5.61.1",
     "core-js": "^3.8.3",
     "element-plus": "^2.2.22",
     "jquery": "^3.6.1",
     "marked": "^4.2.3",
+    "monaco-editor": "^0.34.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vue3-ace-editor": "^2.2.2",
-    "codemirror": "^5.61.1",
     "vuex": "^4.0.0"
   },
   "devDependencies": {

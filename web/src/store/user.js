@@ -72,7 +72,7 @@ export default {
                         });
                         data.success(resp);
                         ElMessage.success('获取信息成功')
-                        console.log(resp);
+                        // console.log(resp);
                     } else {
                         ElMessage.success('获取信息失败')
                         data.error(resp);
@@ -87,7 +87,31 @@ export default {
         logout(context) {
             localStorage.removeItem("jwt_token");
             context.commit("logout");
-        }
+        },
+        register(context, data) {
+            $.ajax({
+                url: "http://localhost:8091/user/account/register/",
+                type: "post",
+                data: {
+                    username: data.username,
+                    password: data.password,
+                    checkPass: data.checkPass,
+                    nickname: data.nickname,
+                    realname: data.realname,
+                    userstuid: data.userstuid,
+                },
+                success(resp) {
+                    if (resp.error_message === "success") {
+                        data.success(resp);
+                    } else {
+                        data.error(resp);
+                    }
+                },
+                error(resp) {
+                    data.error(resp);
+                },
+            })
+        },
     },
     modules: {
     }

@@ -6,7 +6,7 @@
         <div>
             <!-- 编辑器头部 -->
             <div class="code_head">
-                <nav class="navbar navbar-light bg-light">
+                <nav class="navbar navbar-light" style="background-color: darkgray;">
                     <div style="width: 100%; hight: 100px">
                         <!-- 语言选择框 -->
                         <el-select
@@ -25,8 +25,8 @@
                 </nav>
             </div>
             <!-- 编辑器身体 -->
-            <div class="code_body">
-                <CodeMirror></CodeMirror>
+            <div class="code_body_a">
+                <CodeEditer></CodeEditer>
             </div>
         </div>
     </ContenBase>
@@ -36,13 +36,13 @@
 <script>
 import { reactive } from "vue";
 import ContenBase from "../../components/ContentBase.vue";
-import CodeMirror from '../../components/CodeMirrorView.vue'
+import CodeEditer from '../../components/CodeEditor.vue'
 
 export default {
     name: "TestView",
     components: {
         ContenBase,
-        CodeMirror,
+        CodeEditer,
     },
     setup() {
         // 配置
