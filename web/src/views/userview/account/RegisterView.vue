@@ -182,6 +182,7 @@ export default {
                 nickname: registerform.nickname,
                 realname: registerform.realname,
                 userstuid: registerform.userstuid,
+                verification_code: registerform.verification_code,
                 success() {
                     ElMessage.success("注册成功");
                     router.push({ name: "EnterView" });

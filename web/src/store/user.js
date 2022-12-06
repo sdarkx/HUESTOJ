@@ -99,6 +99,7 @@ export default {
                     nickname: data.nickname,
                     realname: data.realname,
                     userstuid: data.userstuid,
+                    verification_code: data.verification_code,
                 },
                 success(resp) {
                     if (resp.error_message === "success") {
