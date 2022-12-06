@@ -34,6 +34,7 @@
                 <el-input
                     type="password"
                     v-model="registerform.checkPass"
+                    @blur="va2"
                     autocomplete="off"
                 ></el-input>
             </el-form-item>
@@ -56,6 +57,15 @@
                     v-model="registerform.userstuid"
                     autocomplete="off"
                 ></el-input>
+            </el-form-item>
+            <!-- 验证码 -->
+            <el-form-item label="验证码" prop="verification_code">
+                <el-input
+                    v-model="registerform.verification_code"
+                    style="width: 59%; margin-right: 20px"
+                    autocomplete="off"
+                ></el-input>
+                <el-button @click="get_verification_code">获取验证码</el-button>
             </el-form-item>
             <!-- 表单提交 -->
             <el-form-item>
@@ -90,6 +100,7 @@ export default {
             nickname: "",
             realname: "",
             userstuid: "",
+            verification_code: "",
         });
 
         const registerformrules = reactive({
@@ -110,15 +121,17 @@ export default {
             password: [
                 {
                     required: true,
-                    validator: validatePass,
+                    message: "请输入密码",
                     trigger: "blur",
+                    // validator: validatePass,
                 },
             ],
             checkPass: [
                 {
                     required: true,
-                    validator: validatePass2,
+                    message: "请再次输入密码",
                     trigger: "blur",
+                    // validator: validatePass2,
                 },
             ],
             // 数据库非必须
@@ -128,28 +141,35 @@ export default {
                     message: "请输入昵称",
                 },
             ],
+            verification_code: [
+                {
+                    required: true,
+                    message: "请输入验证码",
+                },
+            ],
         });
 
         // 密码校验
-        var validatePass = (rule, value, callback) => {
-            if (value === "") {
-                callback(new Error("请输入密码"));
-            } else {
-                if (this.registerform.checkPass !== "") {
-                    this.$refs.registerform.validateField("checkPass");
-                }
-                callback();
-            }
-        };
-        var validatePass2 = (rule, value, callback) => {
-            if (value === "") {
-                callback(new Error("请再次输入密码"));
-            } else if (value !== this.registerform.checkPass) {
-                callback(new Error("两次输入密码不一致!"));
-            } else {
-                callback();
-            }
-        };
+        // var validatePass = (rule, value, callback) => {
+        //     if (value === "") {
+        //         callback(new Error("请输入密码"));
+        //     } else {
+        //         if (this.registerform.checkPass !== "") {
+        //             this.$refs.registerform.validateField("checkPass");
+        //         }
+        //         callback();
+        //     }
+        // };
+        // var validatePass2 = (rule, value, callback) => {
+        //     if (value === "") {
+        //         callback(new Error("请再次输入密码"));
+        //     } else if (value !== this.registerform.checkPass) {
+        //         // callback(new Error("两次输入密码不一致!"));
+        //         this.registerform.checkPass.message = "两次密码不一致";
+        //     } else {
+        //         callback();
+        //     }
+        // };
 
         // 注册表单提交
         const store = useStore();
@@ -171,19 +191,38 @@ export default {
                 },
             });
         };
+        // 验证发送
+        const get_verification_code = () => {
+            if(registerform.username === null){
+                ElMessage.error("账户不能为空");
+            }
+            store.dispatch("get_verification_code", {
+                username: registerform.username,
+                success() {
+                    ElMessage.success("获取成功");
+                },
+                error(resp) {
+                    ElMessage.error();
+                    ElMessage.warning(resp.error_message);
+                },
+            });
+        };
 
         return {
             registerform,
             registerformrules,
-            validatePass,
-            validatePass2,
             submitregisterForm,
+            get_verification_code,
         };
     },
     methods: {
         // 两个页面跳转
         tologin() {
             router.push({ name: "EnterView" });
+        },
+        va2() {
+            if (this.registerform.password !== this.registerform.checkPass)
+                ElMessage.error("两次密码不一致");
         },
     },
 };

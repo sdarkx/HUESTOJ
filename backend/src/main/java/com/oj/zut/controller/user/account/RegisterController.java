@@ -6,7 +6,7 @@
 
 package com.oj.zut.controller.user.account;
 
-import com.oj.zut.pojo.User;
+
 import com.oj.zut.service.utils.user.account.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

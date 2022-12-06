@@ -112,6 +112,25 @@ export default {
                 },
             })
         },
+        get_verification_code(context, data) {
+            $.ajax({
+                url: "http://localhost:8091/user/account/get_verification_code/",
+                type: "post",
+                data: {
+                    username: data.username,
+                },
+                success(resp) {
+                    if (resp.error_message === "success") {
+                        data.success(resp);
+                    } else {
+                        data.error(resp);
+                    }
+                },
+                error(resp) {
+                    data.error(resp);
+                },
+            })
+        }
     },
     modules: {
     }
