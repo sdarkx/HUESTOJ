@@ -9,13 +9,8 @@ package com.oj.zut.service.impl.user.account;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.oj.zut.mapper.UserMapper;
 import com.oj.zut.pojo.User;
-import com.oj.zut.pojo.email.AuthEmail;
-import com.oj.zut.pojo.email.Email;
 import com.oj.zut.service.utils.user.account.RegisterService;
-import com.oj.zut.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +26,6 @@ public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private RedisUtils redisUtils;
-
     @Override
     public Map<String, String> register(Map<String, String> data) {
         User user = new User();
@@ -47,20 +40,8 @@ public class RegisterServiceImpl implements RegisterService {
 
         // 前端传过来的验证码
         String verification_code = data.get("verification_code");
-        // redis中的验证码
-        //ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
-        // 通过email获取redis中的code
-        Object value = redisUtils.get(data.get("username"));
-        //Object value = valueOperations.get(Email.getEmail());
-        // 二者不同返回报错
 
-        // DEBUG
-        System.out.println("[DEBUG] RegisterServiceImpl : verification_code :" + verification_code + " value " + value.toString());
-
-        if (value == null || !value.toString().equals(verification_code)) {
-            map.put("error_message", "验证码有误");
-            return map;
-        }
+        // TODO 注册时测验证码校验
 
         String checkPass = data.get("checkPass");
         if (!user.getUPassword().equals(checkPass)) {

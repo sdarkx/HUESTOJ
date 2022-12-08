@@ -91,17 +91,6 @@
             </exclusions>
         </dependency>
 
-        <!-- spring data redis 依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <!-- hutool工具包依赖-->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.5.7</version>
-        </dependency>
         <!--  mail依赖-->
         <dependency>
             <groupId>javax.mail</groupId>
