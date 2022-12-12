@@ -65,7 +65,7 @@
                     style="width: 59%; margin-right: 20px"
                     autocomplete="off"
                 ></el-input>
-                <el-button @click="get_verification_code">获取验证码</el-button>
+                <el-button>获取验证码</el-button>
             </el-form-item>
             <!-- 表单提交 -->
             <el-form-item>
@@ -193,27 +193,26 @@ export default {
             });
         };
         // 验证发送
-        const get_verification_code = () => {
-            if(registerform.username === null){
-                ElMessage.error("账户不能为空");
-            }
-            store.dispatch("get_verification_code", {
-                username: registerform.username,
-                success() {
-                    ElMessage.success("获取成功");
-                },
-                error(resp) {
-                    ElMessage.error();
-                    ElMessage.warning(resp.error_message);
-                },
-            });
-        };
+        // const get_verification_code = () => {
+        //     if(registerform.username === null){
+        //         ElMessage.error("账户不能为空");
+        //     }
+        //     store.dispatch("get_verification_code", {
+        //         username: registerform.username,
+        //         success() {
+        //             ElMessage.success("获取成功");
+        //         },
+        //         error(resp) {
+        //             ElMessage.error();
+        //             ElMessage.warning(resp.error_message);
+        //         },
+        //     });
+        // };
 
         return {
             registerform,
             registerformrules,
             submitregisterForm,
-            get_verification_code,
         };
     },
     methods: {
