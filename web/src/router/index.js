@@ -8,6 +8,7 @@ import NotFoundView from '../views/notfoundview/NotFoundView.vue'
 import EnterView from '../views/userview/account/EnterView.vue'
 import RegisterView from '../views/userview/account/RegisterView.vue'
 import WikiView from '../views/wikiview/WikiView.vue'
+import ProblemDescriptView from '../views/problemview/ProblemDescriptView.vue'
 // 测试页面
 import TestView from '../views/testview/TestView.vue'
 
@@ -61,6 +62,11 @@ const routes = [
         path: '/register',
         name: 'RegisterView',
         component: RegisterView
+    },
+    {
+        path: '/problem/descript/',
+        name: 'ProblemDescriptView',
+        component: ProblemDescriptView
     },
     // 测试路由
     {

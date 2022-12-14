@@ -19,8 +19,14 @@
                     <tbody>
                         <tr v-for="pb in tableDate" :key="pb.pb_id">
                             <td style="text-align: center">{{ pb.pb_id }}</td>
-                            <td style="text-align: left; font-size: 14px">
-                                {{ pb.pb_name }}
+                            <td style="text-align: left; font-size: 14px;">
+                                <router-link
+                                    :to="{
+                                        name: 'ProblemDescriptView',
+                                        query: { pb_id: pb.pb_id },
+                                    }"
+                                    >{{ pb.pb_name }}</router-link
+                                >
                             </td>
                             <td style="text-align: center">
                                 {{ pb.pb_rating }}
@@ -37,7 +43,7 @@
                 <!-- prev -->
                 <div class="btn_begin_mid_end">
                     <el-button
-                        class="btn"
+                        text
                         @click="handleCurrentChange(-1)"
                         :disabled="current === 1 ? true : false"
                         >上一页</el-button
@@ -46,7 +52,7 @@
                     <div>第{{ current }}/{{ sizes }}页</div>
                     <!-- next -->
                     <el-button
-                        class="btn"
+                        text
                         :disabled="current === sizes ? true : false"
                         @click="handleCurrentChange(1)"
                         >下一页</el-button
@@ -74,7 +80,7 @@ export default {
     setup() {
         let tableDate = ref([]); // 题目列表
 
-        let size = ref("20"); // 每页展示条数
+        let size = ref("15"); // 每页展示条数
         let total = ref(""); // 总记录数
         let current = ref(1); // 当前页
         let sizes = ref(); // 总页数
@@ -111,11 +117,11 @@ export default {
 
         return {
             tableDate,
-            handleCurrentChange,
             size,
             total,
             current,
             sizes,
+            handleCurrentChange,
         };
     },
 };
@@ -126,13 +132,4 @@ export default {
     display: flex;
     justify-content: space-between;
 }
-
-/* 
- 设置禁用
-<el-button 
-    type="text"
-    style="margin-top: -10px" 
-    :disabled="Object.statusId === '1'  ?  false : true">
-    <i title="端口配置" class="iconfont icon-port"></i>
-</el-button> */
 </style>
