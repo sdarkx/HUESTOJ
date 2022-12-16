@@ -4,7 +4,7 @@
 // @File : InfoController.java
 // @Software : IntelliJ IDEA
 
-package com.oj.zut.pojo.controller.user.account;
+package com.oj.zut.controller.user.account;
 
 import com.oj.zut.service.utils.user.account.InfoService;
 import org.springframework.beans.factory.annotation.Autowired;

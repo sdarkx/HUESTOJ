@@ -25,6 +25,7 @@ public class notice {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     private String ntTitle;
+    private String ntAuthor;
     /**
      * 时间格式 及时区问题
      */

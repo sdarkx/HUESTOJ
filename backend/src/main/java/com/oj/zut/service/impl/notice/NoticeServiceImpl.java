@@ -40,10 +40,11 @@ public class NoticeServiceImpl implements NoticeService {
         for(notice no : records){
             map.put("id", no.getId().toString());
             map.put("nt_title", no.getNtTitle());
+            map.put("nt_author", no.getNtAuthor());
             map.put("nt_time", no.getNtTime().toString());
             map.put("nt_up_time", no.getNtUpTime().toString());
-            map.put("np_text", no.getNtText());
-            map.put("np_count", no.getNtCount().toString());
+            map.put("nt_text", no.getNtText());
+            map.put("nt_count", no.getNtCount().toString());
         }
         // 封装总记录数
         map.put("total", String.valueOf(noticeIPage.getTotal()));

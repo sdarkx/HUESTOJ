@@ -4,7 +4,7 @@
 // @File : NoticeController.java
 // @Software : IntelliJ IDEA
 
-package com.oj.zut.pojo.controller.notice;
+package com.oj.zut.controller.notice;
 
 
 import com.oj.zut.service.utils.notice.NoticeService;
