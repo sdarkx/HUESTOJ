@@ -4,7 +4,7 @@
 // @File : getProblemPageController.java
 // @Software : IntelliJ IDEA
 
-package com.oj.zut.controller.user.sproblem;
+package com.oj.zut.pojo.controller.user.sproblem;
 
 import com.oj.zut.service.utils.problems.getProblemListService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -23,14 +23,20 @@ public class Problem {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     private String pbId;
-    private String pbName;
-    private String pbDescribe;
-    private Integer pbLimTime;
-    private Integer pbLimMemory;
-    private String pbAuthor;
-    private String pbSource;
-    private Integer pbIsopen;
+    private String pbName; // 题目名字
+    private Integer pbLimTime; // 时间限制
+    private Integer pbLimMemory; // 空间限制
+    private String pbDescribe; // 题目描述
+    private String pbIn; // 输入格式
+    private String pbOut; // 输出格式
+    private String pbDataRange; // 数据范围
+    private String pbSimpleIn; // 样例输入
+    private String pbSimpleOut; // 样例输出
+
     private Integer pbRating;
     private Integer pbAccepted;
+    private String pbAuthor;
+    private String pbSource;
+    private Integer pbIsopen; // 暂时没用
 
 }

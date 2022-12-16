@@ -4,7 +4,7 @@
 // @File : UserSubmitController.java
 // @Software : IntelliJ IDEA
 
-package com.oj.zut.controller.user.sproblem;
+package com.oj.zut.pojo.controller.user.sproblem;
 
 import com.mysql.cj.conf.url.LoadBalanceDnsSrvConnectionUrl;
 import com.oj.zut.pojo.SubmitStatus;

@@ -20,13 +20,85 @@
                     </el-header>
                     <hr style="margin-top: -20px" />
                     <el-container>
+                        <!-- 题目展示 -->
                         <el-main style="padding: 0">
-                            <div v-html="markdownToHtml"></div>
+                            <!-- 名称及时空限制 -->
+                            <div style="text-align: center">
+                                <h3
+                                    v-if="pb_id !== null"
+                                    style="display: inline"
+                                >
+                                    {{ pb_id }}:
+                                </h3>
+                                <h3
+                                    v-if="pb_name !== null"
+                                    style="display: inline"
+                                >
+                                    {{ pb_name }}
+                                </h3>
+                                <h5
+                                    v-if="
+                                        pb_limit_time !== null &&
+                                        pb_limit_memory !== null
+                                    "
+                                    style="font-size: 15px; padding-top: 10px"
+                                >
+                                    时/空限制: {{ pb_limit_time }}ms/{{
+                                        pb_limit_memory
+                                    }}MB
+                                </h5>
+                            </div>
+                            <!-- 题目描述 -->
+                            <div style="padding-top: 40px">
+                                <!-- 题目描述 -->
+                                <div v-if="pb_describe !== null">
+                                    <h5 style="font-weight: bold">题目描述</h5>
+                                    <p>{{ pb_describe }}</p>
+                                    <autoTextarea
+                                        lineHeight="30px"
+                                        v-model="pb_describe"
+                                    />
+                                </div>
+                                <!-- 输入格式 -->
+                                <div
+                                    v-if="pb_in !== null && pb_in !== ''"
+                                    style="padding-top: 20px"
+                                >
+                                    <h5 style="font-weight: bold">输入格式</h5>
+                                    <p>{{ pb_in }}</p>
+                                </div>
+                                <!-- 输出格式 -->
+                                <div
+                                    v-if="pb_out !== null && pb_out !== ''"
+                                    style="padding-top: 20px"
+                                >
+                                    <h5 style="font-weight: bold">输出格式</h5>
+                                    <p>{{ pb_out }}</p>
+                                </div>
+                                <!-- 样例 -->
+                                <div style="padding-top: 20px">
+                                    <div v-if="pb_simple_in !== null">
+                                        <h5 style="font-weight: bold">
+                                            样例输入
+                                        </h5>
+                                        <p>{{ pb_simple_in }}</p>
+                                    </div>
+                                    <div v-if="pb_simple_out !== null">
+                                        <h5 style="font-weight: bold">
+                                            样例输出
+                                        </h5>
+                                        <p>{{ pb_simple_out }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </el-main>
+                        <!-- 侧边题目数据展示 -->
                         <el-aside width="20%">
                             <div>Problem Rating : {{ pb_rating }}</div>
-                            <hr>
+                            <hr />
                             <div>Accetped : {{ pb_accepted }}</div>
+                            <hr />
+                            <div>Author : {{ pb_author }}</div>
                         </el-aside>
                     </el-container>
                 </el-container>
@@ -40,18 +112,28 @@
 import { ref } from "vue";
 import $ from "jquery";
 import ContentBase from "../../components/ContentBase.vue";
-import { marked } from "marked";
+import { autoTextarea } from "auto-textarea";
 
 export default {
     name: "ProblemDescript",
     components: {
         ContentBase,
+        autoTextarea,
     },
     setup() {
         let pb_id = ref();
+        let pb_name = ref("");
+        let pb_limit_time = ref("");
+        let pb_limit_memory = ref("");
         let pb_describe = ref("");
+        let pb_in = ref("");
+        let pb_out = ref("");
+        let pb_simple_in = ref("");
+        let pb_simple_out = ref("");
         let pb_rating = ref("");
         let pb_accepted = ref("");
+        let pb_author = ref("");
+        let sty_height = ref("100px");
 
         const getproblemdescript = () => {
             $.ajax({
@@ -61,9 +143,17 @@ export default {
                     pb_id: pb_id.value,
                 },
                 success(resp) {
+                    pb_name.value = resp.pb_name;
+                    pb_limit_time.value = resp.pb_lim_time;
+                    pb_limit_memory.value = resp.pb_lim_memory;
                     pb_describe.value = resp.pb_describe;
+                    pb_in.value = resp.pb_in;
+                    pb_out.value = resp.pb_out;
+                    pb_simple_in.value = resp.pb_simple_in;
+                    pb_simple_out.value = resp.pb_simple_out;
                     pb_rating.value = resp.pb_rating;
                     pb_accepted.value = resp.pb_accepted;
+                    pb_author.value = resp.pb_author;
                     console.log(resp);
                 },
                 error(resp) {
@@ -74,26 +164,42 @@ export default {
 
         return {
             pb_id,
+            pb_name,
+            pb_limit_time,
+            pb_limit_memory,
             pb_describe,
+            pb_in,
+            pb_out,
+            pb_simple_in,
+            pb_simple_out,
             pb_rating,
             pb_accepted,
+            pb_author,
+
+            sty_height,
             getproblemdescript,
         };
     },
+    methods: {},
     mounted() {
         this.pb_id = this.$route.query.pb_id;
         this.getproblemdescript();
     },
-    computed: {
-        markdownToHtml() {
-            return marked(this.pb_describe);
-        },
-    },
+    computed: {},
 };
 </script>
 
 
 <style scoped>
+/* #pb_data_display {
+    resize: none;
+    width: 100%;
+    background-color: rgb(249, 247, 244);
+    padding: 0;
+    border: none;
+    display: inline-block;
+    line-height: 30px;
+} */
 /* let code_status_colors = {
     'Uploading': "#9d9d9d",
     'Pending': '#9d9d9d',

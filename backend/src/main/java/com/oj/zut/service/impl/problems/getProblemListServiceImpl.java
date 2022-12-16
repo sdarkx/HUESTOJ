@@ -28,11 +28,11 @@ public class getProblemListServiceImpl implements getProblemListService {
     private ProblemsMapper problemsMapper;
 
     @Override
-    public Map<String, List<Map<String, String>>> getProblems(Map<String, String> date) {
+    public Map<String, List<Map<String, String>>> getProblems(Map<String, String> data) {
         Map<String, List<Map<String, String>>> map = new HashMap<>();
 
-        int current_page = Integer.parseInt(date.get("current_page"));
-        int page_size = Integer.parseInt(date.get("page_size"));
+        int current_page = Integer.parseInt(data.get("current_page"));
+        int page_size = Integer.parseInt(data.get("page_size"));
 
         IPage<Problem> page = new Page<>(current_page, page_size);
         QueryWrapper<Problem> problemQueryWrapper = new QueryWrapper<>();

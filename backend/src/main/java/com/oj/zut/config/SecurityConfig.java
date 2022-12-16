@@ -47,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/user/account/token/",
                         "/user/account/register/",
                         "/problem/list/",
-                        "/problem/getdesc/"
+                        "/problem/getdesc/",
+                        "/home/notice/"
                 ).permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
