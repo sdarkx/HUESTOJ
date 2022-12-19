@@ -6,12 +6,14 @@
 
 package com.oj.zut.coderunnersystem;
 
+import com.oj.zut.coderunnersystem.service.Impl.CodeRunningServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class CodeRunnerSystemApplication {
     public static void main(String[] args) {
+        CodeRunningServiceImpl.code_pool.start();
         SpringApplication.run(CodeRunnerSystemApplication.class, args);
     }
 }

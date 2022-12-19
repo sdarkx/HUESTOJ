@@ -6,45 +6,48 @@
 
 package com.oj.zut.controller.user.sproblem;
 
-import com.mysql.cj.conf.url.LoadBalanceDnsSrvConnectionUrl;
 import com.oj.zut.pojo.SubmitStatus;
-import org.springframework.web.bind.annotation.PathVariable;
+import com.oj.zut.service.utils.user.account.InfoService;
+import com.oj.zut.service.utils.user.submit.UserSubmit;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.beanvalidation.SpringConstraintValidatorFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@RestController
 public class UserSubmitController {
 
-    @PostMapping("/user/submit/{task}")
-    public Map<String, String> UserSubmit(@RequestParam Map<String, String> data, @PathVariable String task) {
+    @Autowired
+    private InfoService infoService;
+
+    @Autowired
+    private UserSubmit userSubmit;
+
+    @PostMapping("/user/submit/")
+    public Map<String, String> UserSubmit(@RequestParam Map<String, String> data) {
         Map<String, String> map = new HashMap<>();
-        /**
-         * 作者
-         * 题目编号
-         * 语言
-         * 代码
-         */
-        String uid = data.get("id");
-        String language = data.get("language");
-        String demo = data.get("submit_demo");
 
-        /**
-         * 提交时间
-         */
-        Date date = new Date();
+        //Map<String, String> getinfo = infoService.getinfo();
+        //String uid = getinfo.get("id"); // a
+        String uid = data.get("uid");
+        String pid = data.get("pb_id"); // q
+        String lang = data.get("language"); // lang
+        String demo = data.get("demo"); // demo
+
         SubmitStatus submit = new SubmitStatus();
-        submit.setUId(uid);
-        submit.setPID(task);
-        submit.setSTime(date);
-        submit.setSLanguage(language);
+        submit.setSUserId(uid);
+        submit.setSPbId(pid);
+        submit.setSTime(new Date());
+        submit.setSLang(lang);
         submit.setSDemo(demo);
+        submit.setSVerdict("Pending");
 
-        // 调用服务层 然后还有个判题机
-
-        map.put("error_message", "success");
-        return map;
+        // 调用服务层评测
+        return userSubmit.UserSubmitDemo(submit);
     }
 }
