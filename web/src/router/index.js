@@ -9,6 +9,7 @@ import EnterView from '../views/userview/account/EnterView.vue'
 import RegisterView from '../views/userview/account/RegisterView.vue'
 import WikiView from '../views/wikiview/WikiView.vue'
 import ProblemDescriptView from '../views/problemview/ProblemDescriptView.vue'
+import UserStatusView from '../views/problemview/UserStatusView.vue'
 // 测试页面
 import TestView from '../views/testview/TestView.vue'
 
@@ -67,6 +68,11 @@ const routes = [
         path: '/problem/descript/',
         name: 'ProblemDescriptView',
         component: ProblemDescriptView
+    },
+    {
+        path: '/problem/status/',
+        name: 'UserStatusView',
+        component: UserStatusView
     },
     // 测试路由
     {

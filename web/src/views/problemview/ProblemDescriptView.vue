@@ -15,7 +15,7 @@
                         <el-button text style="margin-left: 0px"
                             >submit</el-button
                         >
-                        <el-button text style="margin-left: 0px"
+                        <el-button text style="margin-left: 0px" @click="jumptostatus"
                             >status</el-button
                         >
                     </el-header>
@@ -183,11 +183,12 @@
 
 <script>
 import { ref, reactive } from "vue";
-import { toRaw } from 'vue'
+import { toRaw } from "vue";
 import $ from "jquery";
 import ContentBase from "../../components/ContentBase.vue";
 import { autoTextarea } from "auto-textarea";
 import * as monaco from "monaco-editor";
+import router from '@/router';
 
 export default {
     name: "ProblemDescript",
@@ -322,6 +323,10 @@ export default {
             return submit_form.code_demo; //获取编辑器中的文本
         };
 
+        const jumptostatus = () => {
+            router.push({name: "UserStatusView"});
+        }
+
         return {
             pb_id,
             pb_name,
@@ -344,6 +349,8 @@ export default {
             debug_solution,
             getVal,
             editor,
+
+            jumptostatus,
         };
     },
     methods: {},

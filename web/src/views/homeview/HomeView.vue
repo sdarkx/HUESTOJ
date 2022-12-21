@@ -69,6 +69,8 @@ import { marked } from "marked";
 import NavBarSec from "@/components/NavBarSec.vue";
 import { ref } from "vue";
 import $ from "jquery";
+import { useStore } from "vuex";
+import router from "../../router/index";
 
 export default {
     name: "HomeView",
@@ -115,6 +117,23 @@ export default {
             getnotice();
         };
 
+        const store = useStore();
+        const jwt_token = localStorage.getItem("jwt_token");
+        if (jwt_token) {
+            store.commit("updateToken", jwt_token);
+            store.dispatch("getinfo", {
+                success() {
+                    router.push({ name: "home" });
+                    store.commit("updatePullingInfo", false);
+                },
+                error() {
+                    store.commit("updatePullingInfo", false);
+                },
+            });
+        } else {
+            store.commit("updatePullingInfo", false);
+        }
+
         return {
             markdown,
             current,
@@ -132,6 +151,7 @@ export default {
     },
     mounted() {
         this.getnotice();
+
     },
     computed: {
         markdownToHtml() {

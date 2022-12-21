@@ -71,7 +71,7 @@ export default {
                             is_login: true,
                         });
                         data.success(resp);
-                        ElMessage.success('获取信息成功')
+                        // ElMessage.success('获取信息成功')
                         // console.log(resp);
                     } else {
                         ElMessage.success('获取信息失败')
@@ -132,6 +132,21 @@ export default {
         //         },
         //     })
         // }
+        getuserstatus(context, data) {
+            $.ajax({
+                url: "http://localhost:8091/user/status/",
+                type: "post",
+                headers: {
+                    Authorization: "Bearer " + context.state.token,
+                },
+                success(resp) {
+                    data.success(resp);
+                },
+                error(resp) {
+                    data.error(resp);
+                },
+            })
+        }
     },
     modules: {
     }
