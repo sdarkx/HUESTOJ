@@ -3,6 +3,7 @@
     <div>
         <ContentBase>
             <div class="common-layout">
+                <!-- 问题 -->
                 <el-container>
                     <el-header>
                         <el-button
@@ -102,6 +103,78 @@
                         </el-aside>
                     </el-container>
                 </el-container>
+                <!-- 编辑器 -->
+                <div>
+                    <!-- 代码区 -->
+                    <div>
+                        <!-- 编辑器头部 -->
+                        <div>
+                            <nav
+                                class="navbar navbar-dark bg-dark"
+                                style="height: 75px"
+                            >
+                                <div style="width: 100%; hight: 100px">
+                                    <!-- 语言选择框 -->
+                                    <el-select
+                                        v-model="submit_form.language"
+                                        style="width: 120px; margin-left: 10px"
+                                        placeholder="选择语言"
+                                    >
+                                        <el-option
+                                            v-for="lang in langs"
+                                            :key="lang.value"
+                                            :value="lang.lable"
+                                            :lable="lang.value"
+                                        />
+                                    </el-select>
+                                </div>
+                            </nav>
+                        </div>
+                        <!-- 编辑器身体 -->
+                        <div class="code_body_a">
+                            <div id="codeEditBox"></div>
+                        </div>
+                    </div>
+                    <!-- 两个按钮 -->
+                    <div>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            style="
+                                float: right;
+                                border-radius: 10px;
+                                margin: 20px 0 0 20px;
+                            "
+                            @click="submit_solution"
+                        >
+                            提交答案
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            style="
+                                float: right;
+                                border-radius: 10px;
+                                margin: 20px 0 0 0;
+                            "
+                            @click="debug_solution"
+                        >
+                            调试代码
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- 把容器撑大 -->
+            <div>
+                <textarea
+                    disabled
+                    style="
+                        height: 700px;
+                        resize: none;
+                        padding: 0px;
+                        border: 0px;
+                    "
+                ></textarea>
             </div>
         </ContentBase>
     </div>
@@ -109,10 +182,12 @@
 
 
 <script>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
+import { toRaw } from 'vue'
 import $ from "jquery";
 import ContentBase from "../../components/ContentBase.vue";
 import { autoTextarea } from "auto-textarea";
+import * as monaco from "monaco-editor";
 
 export default {
     name: "ProblemDescript",
@@ -134,6 +209,33 @@ export default {
         let pb_accepted = ref("");
         let pb_author = ref("");
         let sty_height = ref("100px");
+
+        const langs = [
+            {
+                value: "1",
+                lable: "C++",
+            },
+            {
+                value: "2",
+                lable: "C",
+            },
+            {
+                value: "3",
+                lable: "Java",
+            },
+            {
+                value: "4",
+                lable: "Python",
+            },
+        ];
+        //
+        const submit_form = reactive({
+            language: "",
+            code_demo: "",
+            default: {
+                language: "1",
+            },
+        });
 
         const getproblemdescript = () => {
             $.ajax({
@@ -162,6 +264,63 @@ export default {
             });
         };
 
+        const submit_solution = () => {
+            $.ajax({
+                url: "http://localhost:8091/user/submit/",
+                type: "post",
+                data: {
+                    uid: "123",
+                    pb_id: pb_id.value,
+                    language: submit_form.language,
+                    // demo: submit_form.code_demo,
+                },
+                success(resp) {
+                    console.log(resp);
+                },
+                error(resp) {
+                    console.log(resp);
+                },
+            });
+        };
+
+        const debug_solution = () => {
+            console.log(submit_form.language);
+            console.log(submit_form.code_demo);
+        };
+
+        const editor = ref(null);
+        const initEditor = () => {
+            // 初始化编辑器，确保dom已经渲染
+            editor.value = monaco.editor.create(
+                document.getElementById("codeEditBox"),
+                {
+                    value: "", //编辑器初始显示文字
+                    language: "java", //语言支持自行查阅demo
+                    theme: "vs-dark", //官方自带三种主题vs, hc-black, or vs-dark
+                    selectOnLineNumbers: true, //显示行号
+                    roundedSelection: false,
+                    readOnly: false, // 只读
+                    cursorStyle: "line", //光标样式
+                    automaticLayout: false, //自动布局
+                    glyphMargin: true, //字形边缘
+                    useTabStops: false,
+                    fontSize: 18, //字体大小
+                    autoIndent: true, //自动布局
+                    quickSuggestionsDelay: 100, //代码提示延时
+                }
+            );
+            // 监听值的变化
+            editor.value.onDidChangeModelContent((event) => {
+                console.log(event);
+            });
+        };
+        $(document).ready(function () {
+            initEditor();
+        });
+        const getVal = () => {
+            return toRaw(editor.value).getValue(); //获取编辑器中的文本
+        };
+
         return {
             pb_id,
             pb_name,
@@ -178,6 +337,12 @@ export default {
 
             sty_height,
             getproblemdescript,
+            langs,
+            submit_form,
+            submit_solution,
+            debug_solution,
+            getVal,
+            editor,
         };
     },
     methods: {},
@@ -191,6 +356,10 @@ export default {
 
 
 <style scoped>
+#codeEditBox {
+    width: 100%;
+    height: 500px;
+}
 /* #pb_data_display {
     resize: none;
     width: 100%;
