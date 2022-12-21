@@ -47,7 +47,11 @@ public class UserSubmitController {
         submit.setSDemo(demo);
         submit.setSVerdict("Pending");
 
+
+        System.out.println("submit : " + submit);
         // 调用服务层评测
-        return userSubmit.UserSubmitDemo(submit);
+        //return userSubmit.UserSubmitDemo(submit);
+        map.put("error_message", "success");
+        return map;
     }
 }

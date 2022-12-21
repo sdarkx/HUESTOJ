@@ -196,6 +196,7 @@ export default {
         autoTextarea,
     },
     setup() {
+        // 题目描述表单
         let pb_id = ref();
         let pb_name = ref("");
         let pb_limit_time = ref("");
@@ -228,13 +229,10 @@ export default {
                 lable: "Python",
             },
         ];
-        //
+        // 提交代码表单
         const submit_form = reactive({
             language: "",
             code_demo: "",
-            default: {
-                language: "1",
-            },
         });
 
         const getproblemdescript = () => {
@@ -264,6 +262,7 @@ export default {
             });
         };
 
+        // 提交代码
         const submit_solution = () => {
             $.ajax({
                 url: "http://localhost:8091/user/submit/",
@@ -272,7 +271,7 @@ export default {
                     uid: "123",
                     pb_id: pb_id.value,
                     language: submit_form.language,
-                    // demo: submit_form.code_demo,
+                    demo: getVal,
                 },
                 success(resp) {
                     console.log(resp);
@@ -283,9 +282,10 @@ export default {
             });
         };
 
+        // 调试代码
         const debug_solution = () => {
             console.log(submit_form.language);
-            console.log(submit_form.code_demo);
+            console.log(getVal());
         };
 
         const editor = ref(null);
@@ -310,15 +310,16 @@ export default {
                 }
             );
             // 监听值的变化
-            editor.value.onDidChangeModelContent((event) => {
-                console.log(event);
-            });
+            // editor.value.onDidChangeModelContent((event) => {
+            //     console.log(event);
+            // });
         };
         $(document).ready(function () {
             initEditor();
         });
         const getVal = () => {
-            return toRaw(editor.value).getValue(); //获取编辑器中的文本
+            submit_form.code_demo = toRaw(editor.value).getValue();
+            return submit_form.code_demo; //获取编辑器中的文本
         };
 
         return {
