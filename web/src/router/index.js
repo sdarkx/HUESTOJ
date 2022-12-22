@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/homeview/HomeView.vue'
 import ProblemSetView from '../views/problemview/ProblemSetView.vue'
 import StatusView from '../views/statusview/StatusView.vue'
