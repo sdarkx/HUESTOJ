@@ -32,9 +32,9 @@ public class UserSubmitController {
     public Map<String, String> UserSubmit(@RequestParam Map<String, String> data) {
         Map<String, String> map = new HashMap<>();
 
-        //Map<String, String> getinfo = infoService.getinfo();
-        //String uid = getinfo.get("id"); // a
-        String uid = data.get("uid");
+        Map<String, String> getinfo = infoService.getinfo();
+        String uid = getinfo.get("id"); // a
+        //String uid = data.get("uid");
         String pid = data.get("pb_id"); // q
         String lang = data.get("language"); // lang
         String demo = data.get("demo"); // demo
@@ -50,8 +50,8 @@ public class UserSubmitController {
 
         System.out.println("submit : " + submit);
         // 调用服务层评测
-        //return userSubmit.UserSubmitDemo(submit);
-        map.put("error_message", "success");
-        return map;
+        return userSubmit.UserSubmitDemo(submit);
+        //map.put("error_message", "success");
+        //return map;
     }
 }

@@ -29,7 +29,7 @@ public class UserSubmitImpl implements UserSubmit {
 
         // 插入数据库 评测 结果返回后 up数据库
         // TODO
-        WebSocketServe.onMessage("public class Main{\npublic static void main(String[] args) {\nSystem.out.println('A');}}");
+        // WebSocketServe.onMessage();
 
         map.put("error_message", "submit success!");
         return map;
